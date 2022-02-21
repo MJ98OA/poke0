@@ -87,25 +87,28 @@ public class EscenarioController implements Initializable {
     private ProgressBar vidaPokemonEnemigo;
 
     @FXML
-    void bAtaque1(MouseEvent event) throws InterruptedException {
+    void bAtaque1(MouseEvent event) throws InterruptedException, IOException {
         int opcion1 = 1;
+
 
         if (vivoCombateAliado()) {
             ataquesEnemigo(opcion1);
             vidaPokemonEnemigo.setProgress(cargarvidaEnemigo());
             vidaActualE.setText(listaPokemons.get(i).getVidaActual() + "");
+            helloController.actualizarpokemon(helloController.retornarPokemon());
+
         }
 
         if (vivoCombate()) {
             ataques(opcion1);
             vidaMiPokemon.setProgress(cargarvidaMiPokemon());
             vidaActualA.setText(datosMiPokemon.getVidaActual() + "");
+            helloController.actualizarpokemon(helloController.retornarPokemon());
         }
 
         if (saltarAlerta()) {
             alerta();
         }
-
 
     }
 
@@ -205,7 +208,7 @@ public class EscenarioController implements Initializable {
     private List<Pokemons> listaPokemons;
 
     private ModelController modelController;
-
+    private HelloController helloController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -227,11 +230,11 @@ public class EscenarioController implements Initializable {
         try {
             aleatorio();
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("modelo.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("hello-view.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
-            ModelController modelController = fxmlLoader.getController();
-            this.modelController = modelController;
-            this.datosMiPokemon = modelController.mipokemon;
+            HelloController helloController = fxmlLoader.getController();
+            this.helloController=helloController;
+            this.datosMiPokemon = helloController.retornarPokemon().pokemons;
 
             botonesAtaquesOf();
             cargarDatosPokemon();
@@ -270,10 +273,7 @@ public class EscenarioController implements Initializable {
     }
 
     public Boolean vivoCombate() {
-        if (listaPokemons.get(i).getVidaActual() > 0)
-            return true;
-        else
-            return false;
+        return (listaPokemons.get(i).getVidaActual()>0);
     }
 
     public Boolean vivoCombateAliado() {
