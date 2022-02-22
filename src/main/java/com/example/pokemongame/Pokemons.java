@@ -1,12 +1,12 @@
 package com.example.pokemongame;
 
 public class Pokemons {
-    private String nombrepokemon;
-    private int nivelpokemon;
+    public String nombrepokemon;
+    public int nivelpokemon;
     private String imgenpokemon;
     private String imagengenero;
     private String imagenps;
-    private int vidaActual;
+    public int vidaActual;
     private int vidaMaxima;
     boolean  seleccionado;
 

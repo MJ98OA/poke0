@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="fondoBatalla" prefHeight="550.0" prefWidth="900.0"  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pokemongame.EscenarioController">
+<AnchorPane fx:id="fondoBatalla" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pokemongame.EscenarioController">
    <children>
       <ImageView fx:id="fondo" fitHeight="550.0" fitWidth="900.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ProgressBar fx:id="vidaMiPokemon" layoutX="272.0" layoutY="404.0" prefHeight="18.0" prefWidth="155.0" progress="0.0" />

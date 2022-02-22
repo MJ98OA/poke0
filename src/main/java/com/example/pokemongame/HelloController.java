@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class HelloController<Private> implements Initializable {
+public class HelloController implements Initializable {
 
     @FXML
     public AnchorPane actualizatodo;
@@ -35,14 +35,10 @@ public class HelloController<Private> implements Initializable {
     @FXML
     public Button bBatalla;
 
-    @FXML
-    void actualizar(MouseEvent event) {
-
-    }
 
 
     @FXML
-    void iniciarBatalla(MouseEvent event) {
+    void iniciarBatalla(MouseEvent event) throws IOException {
 
 
         try {
@@ -59,22 +55,15 @@ public class HelloController<Private> implements Initializable {
 
         } catch (IOException e) {
             System.out.println(e);
-
         }
-
     }
 
-
-
+    ModelController modelController=null;
 
     ArrayList<ModelController> listaController = new ArrayList<>();
 
-    Random r=new Random();
-    public
-
     static List<Pokemons> listaPokemons = new ArrayList<>();
 
-    ModelController modelController;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -118,20 +107,18 @@ public class HelloController<Private> implements Initializable {
 
     }
 
-    public ModelController retornarPokemon(){
-        ModelController controlador=null;
+    public Pokemons retornarPokemon(){
+
         for(ModelController controller:listaController){
             if(controller.pokemons.isSeleccionado())
-                controlador=controller;
+                modelController=controller;
         }
-        return controlador;
+        return modelController.pokemons;
     }
 
-    public void actualizarpokemon( ModelController model) throws IOException {
-        for(int i=0;i<listaController.size();i++) {
-            listaController.get(i).setData(model.pokemons,this);
-        }
+    public void actualizarpoke(){
 
     }
+
 
 }

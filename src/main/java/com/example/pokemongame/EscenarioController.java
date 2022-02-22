@@ -87,7 +87,7 @@ public class EscenarioController implements Initializable {
     private ProgressBar vidaPokemonEnemigo;
 
     @FXML
-    void bAtaque1(MouseEvent event) throws InterruptedException, IOException {
+    void bAtaque1(MouseEvent event){
         int opcion1 = 1;
 
 
@@ -95,20 +95,18 @@ public class EscenarioController implements Initializable {
             ataquesEnemigo(opcion1);
             vidaPokemonEnemigo.setProgress(cargarvidaEnemigo());
             vidaActualE.setText(listaPokemons.get(i).getVidaActual() + "");
-            helloController.actualizarpokemon(helloController.retornarPokemon());
-
         }
 
         if (vivoCombate()) {
             ataques(opcion1);
             vidaMiPokemon.setProgress(cargarvidaMiPokemon());
             vidaActualA.setText(datosMiPokemon.getVidaActual() + "");
-            helloController.actualizarpokemon(helloController.retornarPokemon());
         }
 
         if (saltarAlerta()) {
             alerta();
         }
+
 
     }
 
@@ -136,8 +134,9 @@ public class EscenarioController implements Initializable {
 
 
     @FXML
-    void bAtaque3(MouseEvent event) {
+    void bAtaque3(MouseEvent event) throws IOException {
         int opcion1 = 3;
+        System.out.println(datosMiPokemon.getNombrepokemon());
 
         if (vivoCombateAliado()) {
             ataquesEnemigo(opcion1);
@@ -203,9 +202,10 @@ public class EscenarioController implements Initializable {
         vidaActualE.setVisible(false);
         psimgE.setVisible(true);
     }
+
     private Pokemons datosMiPokemon;
-    Random r=new Random();
-    private List<Pokemons> listaPokemons;
+
+    private List<Pokemons> listaPokemons = PokemonRepository.listaEnemigos();
 
     private ModelController modelController;
     private HelloController helloController;
@@ -213,28 +213,16 @@ public class EscenarioController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        List<Pokemons> listaPokemons = new ArrayList<>();
-        Pokemons p1 = new Pokemons("Carnivine", 180, "src\\main\\java\\com\\example\\pokemongame\\img\\carnivine.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 190, 190, false);
-        Pokemons p2 = new Pokemons("Entei", 204, "src\\main\\java\\com\\example\\pokemongame\\img\\entei.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 210, 210, false);
-        Pokemons p3 = new Pokemons("Tordous", 250, "src\\main\\java\\com\\example\\pokemongame\\img\\tornadus.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 250, 250, false);
-        Pokemons p4 = new Pokemons("Weavile", 195, "src\\main\\java\\com\\example\\pokemongame\\img\\weavile-f.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 220, 220, false);
-
-
-        listaPokemons.add(p1);
-        listaPokemons.add(p2);
-        listaPokemons.add(p3);
-        listaPokemons.add(p4);
-
-        this.listaPokemons = listaPokemons;
 
         try {
             aleatorio();
-            FXMLLoader fxmlLoader = new FXMLLoader();
+            FXMLLoader fxmlLoader =  new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("hello-view.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
-            HelloController helloController = fxmlLoader.getController();
-            this.helloController=helloController;
-            this.datosMiPokemon = helloController.retornarPokemon().pokemons;
+            HelloController controllerHello = fxmlLoader.getController();
+            helloController=controllerHello;
+            datosMiPokemon = controllerHello.retornarPokemon();
+
 
             botonesAtaquesOf();
             cargarDatosPokemon();
@@ -247,6 +235,7 @@ public class EscenarioController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 
@@ -472,7 +461,6 @@ public class EscenarioController implements Initializable {
         else
             return listaPokemons.get(i);
     }
-
 
 }
 

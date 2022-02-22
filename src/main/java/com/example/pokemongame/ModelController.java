@@ -54,17 +54,13 @@ public class ModelController {
     private ImageView sexopokemon;
 
     @FXML
-    private Label vidaActual;
+    public Label vidaActual;
 
     @FXML
     private Label vidaMaxima;
 
 
     private HelloController controllerVentanaAnterior;
-
-
-
-
 
 
     @FXML
@@ -88,7 +84,6 @@ public class ModelController {
     public void setData(Pokemons pokemons, HelloController controller) throws IOException {
             this.controllerVentanaAnterior = controller;
             this.pokemons=pokemons;
-
             nombrepokemon.setText(pokemons.getNombrepokemon());
             nivelpokemon.setText("Nv"+pokemons.getNivelpokemon());
             vidaActual.setText(""+pokemons.getVidaActual());
@@ -99,8 +94,7 @@ public class ModelController {
             imgpokemon.setImage(imgpoke);
             Image imgps=new Image(pokemons.getImagenps());
             iconopspokemon.setImage(imgps);
-            cargarvidaMiPokemon(pokemons);
-
+            cargarvidaMiPokemon(pokemons,this);
 
     }
 
@@ -114,34 +108,32 @@ public class ModelController {
         vidaMaxima.setTextFill(Paint.valueOf("#86C4FF"));
         barra.setTextFill(Paint.valueOf("#86C4FF"));
         pokemons.seleccionado=false;
-
     }
 
 
-    public void cargarvidaMiPokemon(Pokemons pokemons) {
+    public void cargarvidaMiPokemon(Pokemons pokemonsactual, ModelController controller) {
 
-        int vidaMaxima = pokemons.getVidaMaxima();
-        int vidaActual = pokemons.getVidaActual();
-        double resultadovida = (double) vidaActual / vidaMaxima;
+        int vidaMaxima = pokemonsactual.getVidaMaxima();
+        int vidaActualpokemon = pokemonsactual.getVidaActual();
+        double resultadovida = (double) vidaActualpokemon / vidaMaxima;
 
         if(resultadovida>0.7){
-            barravidapokemon.setStyle("-fx-accent:#00FA00");
-            barravidapokemon.setProgress(resultadovida);
+            controller.barravidapokemon.setStyle("-fx-accent:#00FA00");
+            controller.barravidapokemon.setProgress(resultadovida);
+            controller.vidaActual.setText(String.valueOf(pokemonsactual.getVidaActual()));
         }
         else
             if(resultadovida>=0.4 && resultadovida<0.7){
-                barravidapokemon.setStyle("-fx-accent:yellow");
-                barravidapokemon.setProgress(resultadovida);
+                controller.barravidapokemon.setStyle("-fx-accent:yellow");
+                controller.barravidapokemon.setProgress(resultadovida);
+                controller.vidaActual.setText(String.valueOf(pokemonsactual.getVidaActual()));
             }
             else
                 if(resultadovida<0.3){
-                    barravidapokemon.setStyle("-fx-accent:red");
-                    barravidapokemon.setProgress(resultadovida);
+                    controller.barravidapokemon.setStyle("-fx-accent:red");
+                    controller.barravidapokemon.setProgress(resultadovida);
+                    controller.vidaActual.setText(String.valueOf(pokemonsactual.getVidaActual()));
                 }
-
-
-
     }
-
 
 }
