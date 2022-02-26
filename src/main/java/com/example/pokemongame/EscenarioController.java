@@ -22,7 +22,7 @@ import java.util.*;
 
 
 
-public class EscenarioController implements Initializable {
+public class EscenarioController {
 
     private int i;
 
@@ -87,7 +87,8 @@ public class EscenarioController implements Initializable {
     private ProgressBar vidaPokemonEnemigo;
 
     @FXML
-    void bAtaque1(MouseEvent event){
+    void bAtaque1(MouseEvent event) throws IOException {
+
         int opcion1 = 1;
 
 
@@ -95,18 +96,21 @@ public class EscenarioController implements Initializable {
             ataquesEnemigo(opcion1);
             vidaPokemonEnemigo.setProgress(cargarvidaEnemigo());
             vidaActualE.setText(listaPokemons.get(i).getVidaActual() + "");
+
         }
 
         if (vivoCombate()) {
             ataques(opcion1);
             vidaMiPokemon.setProgress(cargarvidaMiPokemon());
             vidaActualA.setText(datosMiPokemon.getVidaActual() + "");
+
         }
 
         if (saltarAlerta()) {
             alerta();
-        }
 
+        }
+        helloController.actualizarpoke();
 
     }
 
@@ -166,6 +170,7 @@ public class EscenarioController implements Initializable {
 
     @FXML
     void bMenuAtaques(MouseEvent event) {
+
         botonesAtaquesOn();
         botonesMenuInicioOf();
 
@@ -207,37 +212,8 @@ public class EscenarioController implements Initializable {
 
     private List<Pokemons> listaPokemons = PokemonRepository.listaEnemigos();
 
-    private ModelController modelController;
-    private HelloController helloController;
+    private HelloController helloController=null;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-
-        try {
-            aleatorio();
-            FXMLLoader fxmlLoader =  new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("hello-view.fxml"));
-            AnchorPane anchorPane = fxmlLoader.load();
-            HelloController controllerHello = fxmlLoader.getController();
-            helloController=controllerHello;
-            datosMiPokemon = controllerHello.retornarPokemon();
-
-
-            botonesAtaquesOf();
-            cargarDatosPokemon();
-            cargarDatosPokemonEnemigo();
-            File f2 = new File("src\\main\\java\\com\\example\\pokemongame\\img\\escenarioBatalla.png");
-            String url=(f2.toURI().toString());
-            Image imgfondo = new Image(url);
-            fondo.setImage(imgfondo);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     public void alerta() {
         Alert customAlert = new Alert(Alert.AlertType.NONE);
@@ -325,6 +301,7 @@ public class EscenarioController implements Initializable {
     }
 
     public void ataquesEnemigo(int boton) {
+
         Random r = new Random();
         r.nextInt();
         int ataque2 = r.nextInt(25 - 10 + 1) + 10;
@@ -359,7 +336,6 @@ public class EscenarioController implements Initializable {
         int vidaMaxima = datosMiPokemon.getVidaMaxima();
         int vidaActual = datosMiPokemon.getVidaActual();
         double resultadovida = (double) vidaActual / vidaMaxima;
-
         if(resultadovida>0.7){
             vidaMiPokemon.setStyle("-fx-accent: #00FA00");
         }else
@@ -462,5 +438,20 @@ public class EscenarioController implements Initializable {
             return listaPokemons.get(i);
     }
 
+    public void pasarInfo(HelloController controller) {
+        datosMiPokemon = controller.retornarPokemon().pokemons;
+        helloController = controller;
+
+        //helloController.actualizarpoke();
+
+        botonesAtaquesOf();
+        cargarDatosPokemon();
+        cargarDatosPokemonEnemigo();
+        File f2 = new File("src\\main\\java\\com\\example\\pokemongame\\img\\escenarioBatalla.png");
+        String url=(f2.toURI().toString());
+        Image imgfondo = new Image(url);
+        fondo.setImage(imgfondo);
+
+    }
 }
 

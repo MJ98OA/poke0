@@ -40,29 +40,29 @@ public class HelloController implements Initializable {
     @FXML
     void iniciarBatalla(MouseEvent event) throws IOException {
 
-
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("Escenario.fxml"));
-            EscenarioController escenarioController = fxmlLoader.getController();
-
             Scene scene = new Scene(fxmlLoader.load(), 900, 550);
             Stage stage = new Stage();
             stage.setTitle("New Window");
             stage.setScene(scene);
             stage.show();
 
+            EscenarioController escenarioController = fxmlLoader.getController();
+            escenarioController.pasarInfo(this);
+
+
         } catch (IOException e) {
             System.out.println(e);
         }
     }
 
-    ModelController modelController=null;
 
-    ArrayList<ModelController> listaController = new ArrayList<>();
+    static ArrayList<ModelController> listaController = new ArrayList<>();
 
-    static List<Pokemons> listaPokemons = new ArrayList<>();
+    List<Pokemons> listaPokemons = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -107,18 +107,24 @@ public class HelloController implements Initializable {
 
     }
 
-    public Pokemons retornarPokemon(){
-
-        for(ModelController controller:listaController){
-            if(controller.pokemons.isSeleccionado())
-                modelController=controller;
+    public ModelController retornarPokemon() {
+        ModelController controllerseleccionado = null;
+        for (ModelController controller : listaController) {
+            if (controller.pokemons.isSeleccionado()) {
+                controllerseleccionado = controller;
+            }
         }
-        return modelController.pokemons;
+        return controllerseleccionado;
     }
 
-    public void actualizarpoke(){
+    public void actualizarpoke() throws IOException {
+        retornarPokemon().setData(retornarPokemon().pokemons,this);
+        }
 
     }
 
 
-}
+
+
+
+
