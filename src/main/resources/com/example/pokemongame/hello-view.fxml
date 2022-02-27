@@ -22,7 +22,8 @@
                <font>
                   <Font name="Liberation Mono" size="13.0" />
                </font></Label>
-                           <Button fx:id="bBatalla" layoutX="801.0" layoutY="480.0" onMouseClicked="#iniciarBatalla" text="Button" />
+                           <Button fx:id="bBatalla" layoutX="802.0" layoutY="477.0" onMouseClicked="#iniciarBatalla" text="Batalla" />
+            <Button fx:id="estadisticas" layoutX="213.0" layoutY="477.0" mnemonicParsing="false" onMouseClicked="#abrirEstadisticas" text="Estadisticas" />
 
          </children>
          <rotationAxis>

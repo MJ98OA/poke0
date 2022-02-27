@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pokemongame.EstadisticasController">
+   <children>
+      <PieChart />
+      <PieChart fx:id="dañosgenerales" layoutX="14.0" layoutY="50.0" prefHeight="247.0" prefWidth="258.0" />
+      <BarChart layoutX="316.0" layoutY="50.0" prefHeight="247.0" prefWidth="243.0">
+        <xAxis>
+          <CategoryAxis fx:id="pokemonsSeleccionado" label="Pokemons" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="cantidadSeleccionado" label="Seleccionado" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

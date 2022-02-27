@@ -9,9 +9,9 @@ public class Pokemons {
     public int vidaActual;
     private int vidaMaxima;
     boolean  seleccionado;
+    int vecesSeleccionado;
 
-
-    Pokemons(String nombrepokemon,int nivelpokemon,String imgenpokemon,String imagengenero,String imagenps,int vidaActual,int vidaMaxima,boolean seleccionado){
+    Pokemons(String nombrepokemon,int nivelpokemon,String imgenpokemon,String imagengenero,String imagenps,int vidaActual,int vidaMaxima,boolean seleccionado, int vecesSeleccionado){
         this.nombrepokemon=nombrepokemon;
         this.nivelpokemon=nivelpokemon;
         this.imgenpokemon=imgenpokemon;
@@ -20,6 +20,7 @@ public class Pokemons {
         this.vidaActual=vidaActual;
         this.vidaMaxima=vidaMaxima;
         this.seleccionado=seleccionado;
+        this.vecesSeleccionado=vecesSeleccionado;
     }
 
     public String getNombrepokemon() {
@@ -82,4 +83,11 @@ public class Pokemons {
         this.seleccionado = seleccionado;
     }
 
+    public int getVecesSeleccionado() {
+        return vecesSeleccionado;
+    }
+
+    public void setVecesSeleccionado(int vecesSeleccionado) {
+        this.vecesSeleccionado = vecesSeleccionado;
+    }
 }

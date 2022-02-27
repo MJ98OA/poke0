@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -35,31 +36,68 @@ public class HelloController implements Initializable {
     @FXML
     public Button bBatalla;
 
+    @FXML
+    private Button estadisticas;
+
 
 
     @FXML
-    void iniciarBatalla(MouseEvent event) throws IOException {
+    void abrirEstadisticas(MouseEvent event) {
 
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("Escenario.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("Estadisticas.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 900, 550);
             Stage stage = new Stage();
             stage.setTitle("New Window");
             stage.setScene(scene);
             stage.show();
 
-            EscenarioController escenarioController = fxmlLoader.getController();
-            escenarioController.pasarInfo(this);
-
+            EstadisticasController estadisticasController = fxmlLoader.getController();
+            estadisticasController.pasarInfoEstadisticas(this);
 
         } catch (IOException e) {
             System.out.println(e);
         }
+
     }
 
 
+    @FXML
+    void iniciarBatalla(MouseEvent event) throws IOException {
+        if(retornarPokemon().pokemons.vidaActual>0){
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("Escenario.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 900, 550);
+                Stage stage = new Stage();
+                stage.setTitle("New Window");
+                stage.setScene(scene);
+                stage.show();
+
+                EscenarioController escenarioController = fxmlLoader.getController();
+                escenarioController.pasarInfo(this);
+                retornarPokemon().pokemons.vecesSeleccionado+=1;
+
+
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Pokemon Muerto");
+            alert.setTitle("Pokemon Muerto");
+            alert.setContentText("El pokemon "+ retornarPokemon().pokemons.getNombrepokemon()+ " esta muerto");
+            alert.showAndWait();
+        }
+
+    }
+
+
+    static int dañoPokemonsmios=0;
+    static int dañoPokemonsEnemigos=0;
     static ArrayList<ModelController> listaController = new ArrayList<>();
 
     List<Pokemons> listaPokemons = new ArrayList<>();

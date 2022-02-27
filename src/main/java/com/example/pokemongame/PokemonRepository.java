@@ -16,12 +16,12 @@ public class PokemonRepository {
             return listaPokemons;
         }
 
-        Pokemons p1=new Pokemons("Miutu",126,"src\\main\\java\\com\\example\\pokemongame\\img\\mewtwo.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",20,200,false);
-        Pokemons p2=new Pokemons("Aggron",173,"src\\main\\java\\com\\example\\pokemongame\\img\\aggron-mega.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",180,180,false);
-        Pokemons p3=new Pokemons("Arceus",128,"src\\main\\java\\com\\example\\pokemongame\\img\\arceus.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",190,190,false);
-        Pokemons p4=new Pokemons("dialga",165,"src\\main\\java\\com\\example\\pokemongame\\img\\dialga.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",160,160,false);
-        Pokemons p5=new Pokemons("Dragonite",140,"src\\main\\java\\com\\example\\pokemongame\\img\\dragonite.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",250,250,false);
-        Pokemons p6=new Pokemons("Gyarados",142,"src\\main\\java\\com\\example\\pokemongame\\img\\gyarados-f.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",220,220,false);
+        Pokemons p1=new Pokemons("Miutu",126,"src\\main\\java\\com\\example\\pokemongame\\img\\mewtwo.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",20,200,false,0);
+        Pokemons p2=new Pokemons("Aggron",173,"src\\main\\java\\com\\example\\pokemongame\\img\\aggron-mega.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",180,180,false,0);
+        Pokemons p3=new Pokemons("Arceus",128,"src\\main\\java\\com\\example\\pokemongame\\img\\arceus.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",190,190,false,0);
+        Pokemons p4=new Pokemons("dialga",165,"src\\main\\java\\com\\example\\pokemongame\\img\\dialga.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",160,160,false,0);
+        Pokemons p5=new Pokemons("Dragonite",140,"src\\main\\java\\com\\example\\pokemongame\\img\\dragonite.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",250,250,false,0);
+        Pokemons p6=new Pokemons("Gyarados",142,"src\\main\\java\\com\\example\\pokemongame\\img\\gyarados-f.gif","src\\main\\java\\com\\example\\pokemongame\\img\\male.png","src\\main\\java\\com\\example\\pokemongame\\img\\ps.png",220,220,false,0);
         listaPokemons.add(p1);
         listaPokemons.add(p2);
         listaPokemons.add(p3);
@@ -47,10 +47,10 @@ public class PokemonRepository {
 
     static public List<Pokemons> listaEnemigos(){
         List<Pokemons> enemigos=new ArrayList<>();
-        Pokemons p1 = new Pokemons("Carnivine", 180, "src\\main\\java\\com\\example\\pokemongame\\img\\carnivine.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 190, 190, false);
-        Pokemons p2 = new Pokemons("Entei", 204, "src\\main\\java\\com\\example\\pokemongame\\img\\entei.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 210, 210, false);
-        Pokemons p3 = new Pokemons("Tordous", 250, "src\\main\\java\\com\\example\\pokemongame\\img\\tornadus.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 250, 250, false);
-        Pokemons p4 = new Pokemons("Weavile", 195, "src\\main\\java\\com\\example\\pokemongame\\img\\weavile-f.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 220, 220, false);
+        Pokemons p1 = new Pokemons("Carnivine", 180, "src\\main\\java\\com\\example\\pokemongame\\img\\carnivine.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 190, 190, false,0);
+        Pokemons p2 = new Pokemons("Entei", 204, "src\\main\\java\\com\\example\\pokemongame\\img\\entei.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 210, 210, false,0);
+        Pokemons p3 = new Pokemons("Tordous", 250, "src\\main\\java\\com\\example\\pokemongame\\img\\tornadus.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 250, 250, false,0);
+        Pokemons p4 = new Pokemons("Weavile", 195, "src\\main\\java\\com\\example\\pokemongame\\img\\weavile-f.gif", "src\\main\\java\\com\\example\\pokemongame\\img\\male.png", "src\\main\\java\\com\\example\\pokemongame\\img\\ps.png", 220, 220, false,0);
 
         enemigos.add(p1);
         enemigos.add(p2);
