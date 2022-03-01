@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -39,13 +38,12 @@ public class HelloController implements Initializable {
     @FXML
     private Button estadisticas;
 
-
+    EstadisticasController controlEstadisticas;
 
     @FXML
     void abrirEstadisticas(MouseEvent event) {
 
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("Estadisticas.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 900, 550);
@@ -56,6 +54,7 @@ public class HelloController implements Initializable {
 
             EstadisticasController estadisticasController = fxmlLoader.getController();
             estadisticasController.pasarInfoEstadisticas(this);
+            this.controlEstadisticas = estadisticasController;
 
         } catch (IOException e) {
             System.out.println(e);
@@ -66,7 +65,7 @@ public class HelloController implements Initializable {
 
     @FXML
     void iniciarBatalla(MouseEvent event) throws IOException {
-        if(retornarPokemon().pokemons.vidaActual>0){
+        if (retornarPokemon().pokemons.vidaActual > 0) {
             try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -79,26 +78,28 @@ public class HelloController implements Initializable {
 
                 EscenarioController escenarioController = fxmlLoader.getController();
                 escenarioController.pasarInfo(this);
-                retornarPokemon().pokemons.vecesSeleccionado+=1;
+                retornarPokemon().pokemons.vecesSeleccionado += 1;
+                controlEstadisticas.actualizarbarras();
 
 
             } catch (IOException e) {
                 System.out.println(e);
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Pokemon Muerto");
             alert.setTitle("Pokemon Muerto");
-            alert.setContentText("El pokemon "+ retornarPokemon().pokemons.getNombrepokemon()+ " esta muerto");
+            alert.setContentText("El pokemon " + retornarPokemon().pokemons.getNombrepokemon() + " esta muerto");
             alert.showAndWait();
         }
 
     }
 
 
-    static int dañoPokemonsmios=0;
-    static int dañoPokemonsEnemigos=0;
-    static ArrayList<ModelController> listaController = new ArrayList<>();
+    public static int danioPokemonsmios = 0;
+    public static int danioPokemonsEnemigos = 0;
+
+    public static ArrayList<ModelController> listaController = new ArrayList<>();
 
     List<Pokemons> listaPokemons = new ArrayList<>();
 
@@ -107,28 +108,43 @@ public class HelloController implements Initializable {
 
         listaPokemons.addAll(PokemonRepository.getData());
 
-        int columnas=0;
-        int filas=0;
+        int columnas = 0;
+        int filas = 0;
 
         try {
-        for(int i = 0; i< listaPokemons.size(); i++){
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("modelo.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("Estadisticas.fxml"));
 
             AnchorPane anchorPane = fxmlLoader.load();
 
-            ModelController modelController = fxmlLoader.getController();
+            EstadisticasController estadisticasController = fxmlLoader.getController();
+            this.controlEstadisticas = estadisticasController;
 
-            modelController.setData(listaPokemons.get(i), this);
 
-            listaController.add(modelController);
-
-            escenarioPokemons.add(anchorPane,columnas++,filas);
-            if(columnas==3){
-                columnas=0;
-                filas++;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
+        try {
+            for (int i = 0; i < listaPokemons.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("modelo.fxml"));
+
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ModelController modelController = fxmlLoader.getController();
+
+                modelController.setData(listaPokemons.get(i), this);
+
+                listaController.add(modelController);
+
+                escenarioPokemons.add(anchorPane, columnas++, filas);
+                if (columnas == 3) {
+                    columnas = 0;
+                    filas++;
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -139,7 +155,7 @@ public class HelloController implements Initializable {
 
     public void pokemonSeleccionado() {
 
-        for(ModelController controller: listaController) {
+        for (ModelController controller : listaController) {
             controller.pokemonNoSeleccionado();
         }
 
@@ -156,10 +172,20 @@ public class HelloController implements Initializable {
     }
 
     public void actualizarpoke() throws IOException {
-        retornarPokemon().setData(retornarPokemon().pokemons,this);
-        }
-
+        retornarPokemon().setData(retornarPokemon().pokemons, this);
     }
+
+
+    public void actualizarGraficas() {
+        controlEstadisticas.actualizar();
+    }
+
+
+
+
+}
+
+
 
 
 

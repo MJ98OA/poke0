@@ -75,7 +75,6 @@ public class ModelController {
         barra.setTextFill(Paint.valueOf("#E8F6F8"));
         controllerVentanaAnterior.bBatalla.setVisible(true);
         pokemons.seleccionado=true;
-        System.out.println(vidaActual.getText());
 
     }
 

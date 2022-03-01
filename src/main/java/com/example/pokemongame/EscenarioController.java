@@ -1,23 +1,15 @@
 package com.example.pokemongame;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import org.controlsfx.control.PropertySheet;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 
@@ -86,14 +78,38 @@ public class EscenarioController {
     @FXML
     private ProgressBar vidaPokemonEnemigo;
 
-    static int danioTotalPokemonsMios=0;
-    static int danioTotalPokemonsEnemigos=0;
 
     @FXML
     void bAtaque1(MouseEvent event) throws IOException {
 
         int opcion1 = 1;
-        System.out.println(danioTotalPokemonsEnemigos +" - "+ danioTotalPokemonsMios);
+
+        if (vivoCombateAliado()) {
+            ataquesEnemigo(opcion1);
+            vidaPokemonEnemigo.setProgress(cargarvidaEnemigo());
+            vidaActualE.setText(listaPokemons.get(i).getVidaActual() + "");
+        }
+
+        if (vivoCombate()) {
+            ataques(opcion1);
+            vidaMiPokemon.setProgress(cargarvidaMiPokemon());
+            vidaActualA.setText(datosMiPokemon.getVidaActual() + "");
+        }
+
+        if (saltarAlerta()) {
+            alerta();
+
+        }
+        helloController.actualizarpoke();
+        helloController.actualizarGraficas();
+
+
+    }
+
+    @FXML
+    void bAtaque2(MouseEvent event) throws IOException {
+        int opcion1 = 2;
+
         if (vivoCombateAliado()) {
             ataquesEnemigo(opcion1);
             vidaPokemonEnemigo.setProgress(cargarvidaEnemigo());
@@ -112,28 +128,7 @@ public class EscenarioController {
 
         }
         helloController.actualizarpoke();
-
-    }
-
-    @FXML
-    void bAtaque2(MouseEvent event) {
-        int opcion1 = 2;
-
-        if (vivoCombateAliado()) {
-            ataquesEnemigo(opcion1);
-            vidaPokemonEnemigo.setProgress(cargarvidaEnemigo());
-            vidaActualE.setText(listaPokemons.get(i).getVidaActual() + "");
-        }
-
-        if (vivoCombate()) {
-            ataques(opcion1);
-            vidaMiPokemon.setProgress(cargarvidaMiPokemon());
-            vidaActualA.setText(datosMiPokemon.getVidaActual() + "");
-        }
-
-        if (saltarAlerta()) {
-            alerta();
-        }
+        helloController.actualizarGraficas();
 
     }
 
@@ -141,7 +136,7 @@ public class EscenarioController {
     @FXML
     void bAtaque3(MouseEvent event) throws IOException {
         int opcion1 = 3;
-        System.out.println(datosMiPokemon.getNombrepokemon());
+
 
         if (vivoCombateAliado()) {
             ataquesEnemigo(opcion1);
@@ -153,11 +148,16 @@ public class EscenarioController {
             ataques(opcion1);
             vidaMiPokemon.setProgress(cargarvidaMiPokemon());
             vidaActualA.setText(datosMiPokemon.getVidaActual() + "");
+
         }
 
         if (saltarAlerta()) {
             alerta();
+
         }
+        helloController.actualizarpoke();
+        helloController.actualizarGraficas();
+
 
     }
 
@@ -228,6 +228,7 @@ public class EscenarioController {
         customAlert.setGraphic(imgGanador);
 
         showAlert(customAlert);
+
     }
 
 
@@ -287,24 +288,39 @@ public class EscenarioController {
 
     }
 
-    public void ataques(int boton) {
+    public void ataques(int opcionAtaque) {
         Random r = new Random();
         r.nextInt();
-        int ataque2 = r.nextInt(25 - 10 + 1) + 10;
-        int ataque3=r.nextInt(50);
-        switch (boton) {
+        int ataqueEnemigo = r.nextInt(25 - 10 + 1) + 10;
+        int ataqueEnemigo2=r.nextInt(50);
+        switch (opcionAtaque) {
 
             case 1 -> {
+                if(datosMiPokemon.getVidaActual()<=20)
+                    helloController.danioPokemonsEnemigos+=datosMiPokemon.getVidaActual();
+                else
+                    helloController.danioPokemonsEnemigos+=20;
+
                 datosMiPokemon.setVidaActual(datosMiPokemon.getVidaActual() - 20);
-                danioTotalPokemonsEnemigos+=20;
+
             }
             case 2 -> {
-                listaPokemons.get(i).setVidaActual(listaPokemons.get(i).getVidaActual() - ataque2);
-                danioTotalPokemonsEnemigos+=ataque2;
+                if(datosMiPokemon.getVidaActual()<=ataqueEnemigo)
+                    helloController.danioPokemonsEnemigos+=datosMiPokemon.getVidaActual();
+                else
+                    helloController.danioPokemonsEnemigos+=ataqueEnemigo;
+
+                datosMiPokemon.setVidaActual(datosMiPokemon.getVidaActual() - ataqueEnemigo);
+
             }
             case 3 -> {
-                datosMiPokemon.setVidaActual(datosMiPokemon.getVidaActual() - r.nextInt(50));
-                danioTotalPokemonsEnemigos+=ataque3;
+                if(datosMiPokemon.getVidaActual()<=ataqueEnemigo2)
+                    helloController.danioPokemonsEnemigos+=datosMiPokemon.getVidaActual();
+                else
+                    helloController.danioPokemonsEnemigos+=ataqueEnemigo2;
+
+                datosMiPokemon.setVidaActual(datosMiPokemon.getVidaActual() - ataqueEnemigo2);
+
             }
         }
 
@@ -318,18 +334,33 @@ public class EscenarioController {
         switch (opcionAtaque) {
 
             case 1 -> {
+                if(listaPokemons.get(i).getVidaActual()<=20)
+                    helloController.danioPokemonsmios+=listaPokemons.get(i).getVidaActual();
+                else
+                    helloController.danioPokemonsmios+=20;
+
                 listaPokemons.get(i).setVidaActual(listaPokemons.get(i).getVidaActual() - 20);
-                danioTotalPokemonsMios+=20;
+
             }
             case 2 -> {
+                if(listaPokemons.get(i).getVidaActual()<=ataque2)
+                    helloController.danioPokemonsmios+=listaPokemons.get(i).getVidaActual();
+                else
+                    helloController.danioPokemonsmios+=ataque2;
+
                 listaPokemons.get(i).setVidaActual(listaPokemons.get(i).getVidaActual() - ataque2);
-                danioTotalPokemonsMios+=ataque2;
+
             }
             case 3 -> {
-                listaPokemons.get(i).setVidaActual(listaPokemons.get(i).getVidaActual() - r.nextInt(50));
-                danioTotalPokemonsMios+=ataque3;
+                if(listaPokemons.get(i).getVidaActual()<=ataque3)
+                    helloController.danioPokemonsmios+=listaPokemons.get(i).getVidaActual();
+                else
+                    helloController.danioPokemonsmios+=ataque3;
+
+                listaPokemons.get(i).setVidaActual(listaPokemons.get(i).getVidaActual() - ataque3);
             }
         }
+
 
     }
 
@@ -463,7 +494,6 @@ public class EscenarioController {
         datosMiPokemon = controller.retornarPokemon().pokemons;
         helloController = controller;
 
-        //helloController.actualizarpoke();
         aleatorio();
         botonesAtaquesOf();
         cargarDatosPokemon();
