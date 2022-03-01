@@ -10,7 +10,7 @@ public class Pokemons {
     private int vidaMaxima;
     boolean  seleccionado;
     int vecesSeleccionado;
-  
+
 
     Pokemons(String nombrepokemon,int nivelpokemon,String imgenpokemon,String imagengenero,String imagenps,int vidaActual,int vidaMaxima,boolean seleccionado, int vecesSeleccionado){
         this.nombrepokemon=nombrepokemon;
